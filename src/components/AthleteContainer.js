@@ -1,14 +1,45 @@
 import React from 'react'
 import AthleteList from './AthleteList.js'
+import { fetchNFLAthletes } from '../actions/nflAthletes.js'
+import * as NFLAthleteActions from '../actions/nflAthletes.js'
+import { connect } from 'react-redux'
+import { Route, Link, Switch, Redirect } from 'react-router-dom'
+import AthletesForm from './AthletesForm.js'
 
-const AthleteContainer = (props) => {
+class AthleteContainer extends React.Component {
+
+componentDidMount() {
+	this.props.fetchNFLAthletes()
+}
+
+render() {
 	return (
 	<div>
-		<h1><AthleteList nflAthletes={props.nflAthletes} /> </h1>
+		<AthletesForm/>
+		<Route exact path="/athletes" render={(props) => <AthleteList nflAthletes={this.props.nflAthletes} {...props} />} /> 
 
 	</div>
 )
 }
+}
+
+function mapStateToProps(state) {
+	return {
+		nflAthletes: state.nflAthletes.list,
+		isFetching: state.nflAthletes.isFetching
+	}
+}
+
+function mapDispatchToProps(dispatch) {
+	return {
+		fetchNFLAthletes: () => {
+			dispatch(fetchNFLAthletes())
+		}
+	}
+}
 
 
-export default AthleteContainer
+
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(AthleteContainer)

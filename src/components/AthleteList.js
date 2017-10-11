@@ -4,7 +4,7 @@ import Athlete from './Athlete.js'
 
 const AthleteList = (props) => {
 	return (
-		<table>
+		<table className="ui celled padded table">
 		<tbody>
 		<tr>
 		<th>Name</th>
