@@ -24,15 +24,30 @@ export function fetchNFLAthletes() {
   }
 }
 
-export function searchNFLAthletes(name) {
+export function searchNFLAthletesByName(name) {
   return function (dispatch) {
     dispatch(fetchingNFLAthletes())
-    fetch(`http://localhost:3000/nfl_athletes/${name.split(' ')[0]}%20${name.split(' ')[1]}`)
+    fetch('http://localhost:3000/nfl_athletes')
       .then((res) => res.json())
       .then((json) => {
-      	const nflAthletes = [json]
-        dispatch(fetchedNFLAthletes(nflAthletes))
+      	const nflAthletes = json
+        const filtered =nflAthletes.filter(player => player.name.toLowerCase().includes(name.toLowerCase()))
+        console.log(filtered)
+        dispatch(fetchedNFLAthletes(filtered))
       })
   }
+}
 
+export function searchNFLAthletesByPosition(position) {
+  return function (dispatch) {
+    dispatch(fetchingNFLAthletes())
+    fetch('http://localhost:3000/nfl_athletes')
+      .then((res) => res.json())
+      .then((json) => {
+        const nflAthletes = json
+        const filtered =nflAthletes.filter(player => player.position.toLowerCase().includes(position.toLowerCase()))
+        console.log(filtered)
+        dispatch(fetchedNFLAthletes(filtered))
+      })
+  }
 }

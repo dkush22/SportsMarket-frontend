@@ -12,7 +12,7 @@ const Navbar = (props) => {
       	<img src={rodgersDollar} className="App-logo" alt="logo" />
       	<h1 className="item left">SportsMarket</h1>
       	<img src={rodgersDollar} className="App-logo" alt="logo" />
-        <NavLink className="item right" to="/home" exact activeStyle={{background: 'hotpink'}}>Profile</NavLink>
+        <NavLink className="item right" to="/users/1" exact activeStyle={{background: 'hotpink'}}>Profile</NavLink>
         <NavLink className="item" to="/athletes" exact activeStyle={{background: 'hotpink'}}>Athletes</NavLink>
         <NavLink className="item" to="/login" exact activeStyle={{background: 'hotpink'}}>Logout</NavLink>
       </div>

@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { Input, Icon } from 'semantic-ui-react'
-import { searchNFLAthletes } from '../actions/nflAthletes.js'
+import { searchNFLAthletesByName, fetchNFLAthletes, searchNFLAthletesByPosition } from '../actions/nflAthletes.js'
 
 
 class AthletesForm extends React.Component {
@@ -15,8 +15,9 @@ constructor() {
 
   handleSearchSubmit = (event) => {
     event.preventDefault()
-    const filteredPlayers = this.props.nflAthletes.filter(player => player.name.toLowerCase().includes(this.state.inputName.toLowerCase()))
-    console.log(filteredPlayers)
+    this.props.searchNFLAthletesByName(this.state.inputName)
+    // const filteredPlayers = this.props.nflAthletes.filter(player => player.name.toLowerCase().includes(this.state.inputName.toLowerCase()))
+    // console.log(filteredPlayers)
     this.setState({
       inputName: "",
     })
@@ -30,8 +31,13 @@ handleInputSearch = (event) => {
 }
 
 handleCheckbox = (event) => {
-	const selectedPosition = this.props.nflAthletes.filter(player => player.position.includes(event.target.value))
-	console.log(selectedPosition)
+	// const selectedPosition = this.props.nflAthletes.filter(player => player.position.includes(event.target.value))
+	// console.log(selectedPosition)
+  this.props.searchNFLAthletesByPosition(event.target.value)
+}
+
+handleButton = () => {
+  this.props.fetchNFLAthletes()
 }
 
 
@@ -39,10 +45,9 @@ handleCheckbox = (event) => {
     return (
       <div>
 
-      <Input onChange={this.handleInputSearch}
+      <Input onChange={this.handleInputSearch} value={this.state.inputName}
         icon={<Icon onClick={this.handleSearchSubmit} name='search' inverted circular link />}
-        placeholder='Search for Athlete'
-      /><br/>
+        placeholder='Search for Athlete'/> <button onClick={this.handleButton}>Show All Athletes</button><br/>
 <div className="ui form">
   <div className="inline fields">
     <label>Search By Position</label>
@@ -84,4 +89,18 @@ function mapStateToProps(state) {
 	}
 }
 
-export default connect(mapStateToProps)(AthletesForm)
+function mapDispatchToProps(dispatch) {
+  return {
+    searchNFLAthletesByName: (name) => {
+      dispatch(searchNFLAthletesByName(name))
+    },
+    fetchNFLAthletes: () => {
+      dispatch(fetchNFLAthletes())
+    }, 
+    searchNFLAthletesByPosition: (position) => {
+      dispatch(searchNFLAthletesByPosition(position))
+    }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(AthletesForm)
