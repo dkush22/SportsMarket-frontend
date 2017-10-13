@@ -13,6 +13,7 @@ import PrivacyPolicy from './components/PrivacyPolicy.js'
 import Login from './components/Login.js'
 import Signup from './components/Signup.js'
 import { loginUser, logoutUser, signUpUser } from './services/user.js'
+import { Redirect } from 'react-router-dom'
 
 class App extends Component {
 
@@ -68,6 +69,7 @@ class App extends Component {
 
 
   render() {
+    if (localStorage.getItem('jwtToken')) {
     return (
       <div className="App">
       <Route path='/' render={(props) => <Navbar onClick={this.logout}/> } />
@@ -75,6 +77,20 @@ class App extends Component {
                    const id = routeProps.match.params.id
                      return <UsersContainer {...props}  />
                  }} />
+      <Route path="/athletes" render={(props) => <AthleteContainer {...props} /> }/>
+      <Route path="/login" render={() => <Redirect to='/home'/>} />
+      <Route exact path='/signup' render={() => <Redirect to='/home'/>} />
+      <Route exact path="/sitemap" render={(props) => <SiteMap />} /> 
+      <Route exact path="/contact" render={(props) => <Contacts />} /> 
+      <Route exact path="/termsandconditions" render={(props) => <TermsAndConditions />} /> 
+      <Route exact path="/privacy" render={(props) => <PrivacyPolicy />} /> 
+      <Footer />
+      </div>
+    )} else {
+      return (
+      <div className="App">
+      <Route path='/' render={(props) => <Navbar onClick={this.logout}/> } />
+      <Route path="/users/" render={() =><Redirect to='/login'/>}/>
       <Route path="/athletes" render={(props) => <AthleteContainer {...props} /> }/>
       <Route path="/login" render={(props) => <Login onLogin={this.login} {...props} /> }/>
       <Route exact path='/signup' render={(props) => {return <Signup onSignUp={this.signup} {...props}/>}} />
@@ -84,7 +100,8 @@ class App extends Component {
       <Route exact path="/privacy" render={(props) => <PrivacyPolicy />} /> 
       <Footer />
       </div>
-    );
+    )
+    }
   }
 }
 

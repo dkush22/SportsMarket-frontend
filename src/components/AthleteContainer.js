@@ -16,6 +16,7 @@ render() {
 	return (
 	<div>
 		<AthletesForm/>
+		{localStorage.getItem('jwtToken') ? null : <strong>You are not logged in <div className="ui buttons"><Link to={'/login'}><button className="ui button">Login</button></Link><div className="or"></div><Link to={'/signup'}><button className="ui button">Signup</button></Link></div></strong>}
 		<Route exact path="/athletes" render={(props) => <AthleteList nflAthletes={this.props.nflAthletes} {...props} />} /> 
 
 	</div>
