@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import AthleteContainer from './components/AthleteContainer.js'
 import './App.css';
-import {BrowserRouter as Router, Route} from 'react-router-dom'
+import {Route} from 'react-router-dom'
 import Footer from'./components/Footer.js'
 import Navbar from './components/Navbar.js'
 import UsersContainer from './components/UsersContainer.js'
@@ -61,7 +60,6 @@ class App extends Component {
   }
 
   logout = () => {
-    console.log("hello")
      logoutUser()
   }
 
@@ -74,7 +72,7 @@ class App extends Component {
       <div className="App">
       <Route path='/' render={(props) => <Navbar onClick={this.logout}/> } />
       <Route path="/users/:id" render={(routeProps, props) => {
-                   const id = routeProps.match.params.id
+                   // const id = routeProps.match.params.id
                      return <UsersContainer {...props}  />
                  }} />
       <Route path="/athletes" render={(props) => <AthleteContainer {...props} /> }/>

@@ -1,9 +1,9 @@
 import React from 'react'
 import AthleteList from './AthleteList.js'
 import { fetchNFLAthletes } from '../actions/nflAthletes.js'
-import * as NFLAthleteActions from '../actions/nflAthletes.js'
+// import * as NFLAthleteActions from '../actions/nflAthletes.js'
 import { connect } from 'react-redux'
-import { Route, Link, Switch, Redirect } from 'react-router-dom'
+import { Route, Link } from 'react-router-dom'
 import AthletesForm from './AthletesForm.js'
 
 class AthleteContainer extends React.Component {

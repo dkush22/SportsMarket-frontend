@@ -1,6 +1,6 @@
 import React from 'react'
-import { loginUser } from '../services/user.js'
-import { Redirect } from 'react-router-dom'
+// import { loginUser } from '../services/user.js'
+// import { Redirect } from 'react-router-dom'
 
 
 class Login extends React.Component {

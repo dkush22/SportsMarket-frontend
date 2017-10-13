@@ -3,6 +3,7 @@ import Investments from './Investments.js'
 
 
 const InvestmentsList = (props) => {
+	
 	const filteredInvestments = (props.investments ? props.investments.filter(investment => investment.user_id === parseInt(localStorage.getItem('user_id'))) : null)
 	const netTotal = (filteredInvestments ? (filteredInvestments.length ? filteredInvestments.map((investment) => parseFloat(((investment.nfl_athlete.current_stock_value - investment.nfl_athlete.initial_stock_value) * investment.quantity).toFixed(2))) : null) : null)
 	var netTotalAdded = (netTotal ? netTotal.reduce(function(accumulator, currentValue) {

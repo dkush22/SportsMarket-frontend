@@ -1,7 +1,7 @@
 import React from 'react'
 import '../App.css';
 import {NavLink} from 'react-router-dom'
-import footballMoney from '../footballmoney.jpg'
+// import footballMoney from '../footballmoney.jpg'
 import rodgersDollar from '../rodgersDollar.jpg'
 
 const Navbar = (props) => {
