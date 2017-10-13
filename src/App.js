@@ -10,6 +10,9 @@ import SiteMap from './components/SiteMap.js'
 import Contacts from './components/Contacts.js'
 import TermsAndConditions from './components/TermsAndConditions.js'
 import PrivacyPolicy from './components/PrivacyPolicy.js'
+import Login from './components/Login.js'
+import Signup from './components/Signup.js'
+import { loginUser, logoutUser, signUpUser } from './services/user.js'
 
 class App extends Component {
 
@@ -37,6 +40,29 @@ class App extends Component {
   //   .then(nflAthletes => this.setState({nflAthletes}))
   // }
 
+  login = (loginParams) => {
+    loginUser(loginParams)
+      .then((user) => {
+        if (user.message !== "Invalid User") {
+        localStorage.setItem("jwtToken", user.jwt)
+        localStorage.setItem("user_id", user.user.id)
+      }})
+  }
+
+  signup = (signUpParams) => {
+    signUpUser(signUpParams)
+    .then((data)=> loginUser(data))
+      .then((user) => {
+        if (user.message !== "Invalid User") {
+        localStorage.setItem("jwtToken", user.jwt)
+        localStorage.setItem("user_id", user.user.id)
+      }})
+  }
+
+  logout = () => {
+    console.log("hello")
+     logoutUser()
+  }
 
 
 
@@ -44,12 +70,14 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-      <Navbar/>
+      <Route path='/' render={(props) => <Navbar onClick={this.logout}/> } />
       <Route path="/users/:id" render={(routeProps, props) => {
                    const id = routeProps.match.params.id
                      return <UsersContainer {...props}  />
                  }} />
       <Route path="/athletes" render={(props) => <AthleteContainer {...props} /> }/>
+      <Route path="/login" render={(props) => <Login onLogin={this.login} {...props} /> }/>
+      <Route exact path='/signup' render={(props) => {return <Signup onSignUp={this.signup} {...props}/>}} />
       <Route exact path="/sitemap" render={(props) => <SiteMap />} /> 
       <Route exact path="/contact" render={(props) => <Contacts />} /> 
       <Route exact path="/termsandconditions" render={(props) => <TermsAndConditions />} /> 
