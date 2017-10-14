@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import AthleteContainer from './components/AthleteContainer.js'
+import AthleteInfo from './components/AthleteInfo.js'
 import './App.css';
 import {Route} from 'react-router-dom'
 import Footer from'./components/Footer.js'
@@ -76,6 +77,7 @@ class App extends Component {
                      return <UsersContainer {...props}  />
                  }} />
       <Route path="/athletes" render={(props) => <AthleteContainer {...props} /> }/>
+      <Route path="/athletes/:id" render={(routeProps, props) => <AthleteInfo {...props}/> }/>
       <Route path="/login" render={() => <Redirect to='/home'/>} />
       <Route exact path='/signup' render={() => <Redirect to='/home'/>} />
       <Route exact path="/sitemap" render={(props) => <SiteMap />} /> 

@@ -23,6 +23,7 @@ handleSubmit = (event) => {
       username: "",
       password: ""
     })
+    this.props.history.push('athletes')
 }
 
 handleUsernameChange = (event) => {
@@ -39,6 +40,7 @@ handlePasswordChange = (event) => {
 }
 
   render() {
+    console.log(this.props.history)
       return(
     <div className="ui container">
       <div className="ui middle aligned center aligned grid">
