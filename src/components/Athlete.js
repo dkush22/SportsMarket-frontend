@@ -2,13 +2,14 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { Route, Link } from 'react-router-dom'
 import AthleteInfo from './AthleteInfo.js'
+import { newInvestment } from '../services/investment.js'
 
 const Athlete = (props) => {
 
 
 function handleBuyButton(event) {
 	const investmentParams = {user_id: parseInt(localStorage.getItem('user_id')), nfl_athlete_id: props.athlete.id, quantity: 1}
-	console.log(investmentParams)
+	newInvestment(investmentParams)
 }
 
 

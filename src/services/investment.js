@@ -1,6 +1,6 @@
 export function newInvestment(investmentParams) {
   const body = JSON.stringify(investmentParams)
-  return fetch("http://localhost:3000/photoupload", {
+  return fetch("http://localhost:3000/newinvestment", {
     method: 'post',
     body: body,
     headers: {
