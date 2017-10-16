@@ -14,6 +14,7 @@ import Login from './components/Login.js'
 import Signup from './components/Signup.js'
 import { loginUser, logoutUser, signUpUser } from './services/user.js'
 import { Redirect } from 'react-router-dom'
+import Welcome from './components/Welcome.js'
 
 class App extends Component {
 
@@ -72,12 +73,13 @@ class App extends Component {
     return (
       <div className="App">
       <Route path='/' render={(props) => <Navbar onClick={this.logout}/> } />
+      <Route exact path='/' render={() => <Welcome />}/>
       <Route path="/users/:id" render={(routeProps, props) => {
                    // const id = routeProps.match.params.id
                      return <UsersContainer {...props}  />
                  }} />
       <Route path="/athletes" render={(props) => <AthleteContainer {...props} /> }/>
-      <Route path="/athletes/:id" render={(routeProps, props) => <AthleteInfo {...props}/> }/>
+
       <Route path="/login" render={() => <Redirect to='/home'/>} />
       <Route exact path='/signup' render={() => <Redirect to='/home'/>} />
       <Route exact path="/sitemap" render={(props) => <SiteMap />} /> 

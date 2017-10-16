@@ -6,6 +6,7 @@ import { fetchInvestments } from '../actions/investments.js'
 import { connect } from 'react-redux'
 import { Route, Link } from 'react-router-dom'
 import AthletesForm from './AthletesForm.js'
+import AthleteInfo from './AthleteInfo.js'
 
 class AthleteContainer extends React.Component {
 
@@ -17,9 +18,11 @@ componentDidMount() {
 render() {
 	return (
 	<div>
-		<AthletesForm/>
+		{window.location.href === "http://localhost:3001/athletes" ? <AthletesForm/> : null}
 		{localStorage.getItem('jwtToken') ? null : <strong>You are not logged in <div className="ui buttons"><Link to={'/login'}><button className="ui button">Login</button></Link><div className="or"></div><Link to={'/signup'}><button className="ui button">Signup</button></Link></div></strong>}
+		<Route path="/athletes/:id" render={(routeProps, props) => <AthleteInfo nflAthletes={this.props.nflAthletes} {...props}/> }/>
 		<Route exact path="/athletes" render={(props) => <AthleteList nflAthletes={this.props.nflAthletes} investments={this.props.investments} {...props} />} /> 
+		
 
 	</div>
 )
