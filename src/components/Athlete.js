@@ -7,10 +7,11 @@ import { newInvestment } from '../services/investment.js'
 const Athlete = (props) => {
 
 
-// function handleBuyButton(event) {
-// 	const investmentParams = {user_id: parseInt(localStorage.getItem('user_id')), nfl_athlete_id: props.athlete.id, quantity: 1}
-// 	newInvestment(investmentParams)
-// }
+function handleSellButton(event) {
+	// const investmentParams = "hello"
+	// console.log(investmentParams)
+	// newInvestment(investmentParams)
+}
 
 
 	const filteredInvestments = props.investments.filter(investment => investment.user_id === parseInt(localStorage.getItem('user_id')))

@@ -13,10 +13,10 @@ export function newInvestment(investmentParams) {
 }
 
 
-export function DeleteInvestment(investmentParams) {
+export function deleteInvestment(investmentParams) {
   const body = JSON.stringify(investmentParams)
-  return fetch("http://localhost:3000/newinvestment", {
-    method: 'post',
+  return fetch("http://localhost:3000/deleteinvestment", {
+    method: 'delete',
     body: body,
     headers: {
       "Accept":"application/json",
