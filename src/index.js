@@ -15,7 +15,6 @@ import nflAthletesReducer from './reducers/nflAthletesReducer.js'
 const rootReducer = combineReducers({users: usersReducer, nflAthletes: nflAthletesReducer})
 const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(thunk)))
 
-
 ReactDOM.render(<Provider store={store}><Router><App /></Router></Provider>, document.getElementById('root'));
 registerServiceWorker();
 

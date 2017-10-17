@@ -1,28 +1,46 @@
 import React from 'react'
 import { deleteInvestment } from '../services/investment.js'
+import { fetchInvestments } from '../actions/investments.js'
+import { connect } from 'react-redux'
 
 
-const Investments = (props) => {
 
-function handleSell() {
-	const investmentParams = {user_id: props.investment.user_id, nfl_athlete_id: props.investment.nfl_athlete_id}
-	deleteInvestment(investmentParams)
+class Investments extends React.Component {
+  constructor() {
+    super()
+  }
+
+
+
+handleSell = () => {
+	const investmentParams = {user_id: this.props.investment.user_id, nfl_athlete_id: this.props.investment.nfl_athlete_id}
+	deleteInvestment(investmentParams, this.props.fetchInvestments)
 }
-console.log(props)
+
+render() {
 	return (
     <tr>
-      <td>{props.investment.nfl_athlete.name}</td>
-      <td>${props.investment.nfl_athlete.initial_stock_value.toFixed(2)}</td>
-      <td>${props.investment.acquisition_price.toFixed(2)}</td>
-      <td>${props.investment.nfl_athlete.current_stock_value.toFixed(2)}</td>
-      <td>{props.investment.quantity}</td>
-      <td>${(props.investment.quantity * props.investment.acquisition_price).toFixed(2)}</td>
-      <td>${(props.investment.nfl_athlete.current_stock_value * props.investment.quantity).toFixed(2)}</td>
-      <td className={(((props.investment.nfl_athlete.current_stock_value) - (props.investment.acquisition_price)) * (props.investment.quantity)).toFixed(2) > 0 ? 'positive' : 'negative' }>${(((props.investment.nfl_athlete.current_stock_value.toFixed(2)) - (props.investment.acquisition_price.toFixed(2))) * (props.investment.quantity)).toFixed(2)  }</td>
-      <td><button className="ui negative button" onClick={handleSell}>Sell</button></td>
+      <td>{this.props.investment.nfl_athlete.name}</td>
+      <td>${this.props.investment.nfl_athlete.initial_stock_value.toFixed(2)}</td>
+      <td>${this.props.investment.acquisition_price.toFixed(2)}</td>
+      <td>${this.props.investment.nfl_athlete.current_stock_value.toFixed(2)}</td>
+      <td>{this.props.investment.quantity}</td>
+      <td>${(this.props.investment.quantity * this.props.investment.acquisition_price).toFixed(2)}</td>
+      <td>${(this.props.investment.nfl_athlete.current_stock_value * this.props.investment.quantity).toFixed(2)}</td>
+      <td className={(((this.props.investment.nfl_athlete.current_stock_value) - (this.props.investment.acquisition_price)) * (this.props.investment.quantity)).toFixed(2) > 0 ? 'positive' : 'negative' }>${(((this.props.investment.nfl_athlete.current_stock_value.toFixed(2)) - (this.props.investment.acquisition_price.toFixed(2))) * (this.props.investment.quantity)).toFixed(2)  }</td>
+      <td><button className="ui negative button" onClick={this.handleSell}>Sell</button></td>
     </tr>
 	)
+  }
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    fetchInvestments: () => {
+      dispatch(fetchInvestments())
+    }
+  }
 }
 
 
-export default Investments
+export default connect(null, mapDispatchToProps)(Investments)

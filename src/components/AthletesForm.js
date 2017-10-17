@@ -33,7 +33,11 @@ handleInputSearch = (event) => {
 handleCheckbox = (event) => {
 	// const selectedPosition = this.props.nflAthletes.filter(player => player.position.includes(event.target.value))
 	// console.log(selectedPosition)
+  if (event.target.value === "All") {
+    this.props.fetchNFLAthletes()
+  } else {
   this.props.searchNFLAthletesByPosition(event.target.value)
+  }
 }
 
 handleButton = () => {
@@ -51,9 +55,15 @@ handleButton = () => {
 <div className="ui form">
   <div className="inline fields">
     <label>Search By Position</label>
+     <div className="field">
+      <div className="ui radio checkbox">
+        <input type="radio" name="frequency" onClick={this.handleCheckbox} defaultChecked="true" value="All"/>
+        <label>All</label>
+      </div>
+    </div>
     <div className="field">
       <div className="ui radio checkbox">
-        <input type="radio" name="frequency" onClick={this.handleCheckbox} defaultChecked="true" value="QB"/>
+        <input type="radio" name="frequency" onClick={this.handleCheckbox} value="QB"/>
         <label>QB</label>
       </div>
     </div>

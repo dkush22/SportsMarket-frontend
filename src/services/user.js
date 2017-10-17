@@ -16,6 +16,7 @@ export function loginUser(loginParams) {
 export function logoutUser() {
   localStorage.removeItem("jwtToken")
   localStorage.removeItem("user_id")
+  localStorage.removeItem("username")
 }
 
 

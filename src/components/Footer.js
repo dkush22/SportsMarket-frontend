@@ -7,7 +7,6 @@ const Navbar = () => {
     <div className="ui inverted vertical footer segment blue">
       <div className="ui center aligned container">
         <div className="ui horizontal inverted small divided link list">
-          <a className="item" href="/sitemap">Site Map</a>
           <a className="item" href="/contact">Contact Us</a>
           <a className="item" href="/termsandconditions">Terms and Conditions</a>
           <a className="item" href="/privacy">Privacy Policy</a>
@@ -18,3 +17,6 @@ const Navbar = () => {
 }
 
 export default Navbar
+
+
+  // <a className="item" href="/sitemap">Site Map</a>

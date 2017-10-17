@@ -15,6 +15,7 @@ import Signup from './components/Signup.js'
 import { loginUser, logoutUser, signUpUser } from './services/user.js'
 import { Redirect } from 'react-router-dom'
 import Welcome from './components/Welcome.js'
+import { withRouter } from 'react-router'
 
 class App extends Component {
 
@@ -48,7 +49,9 @@ class App extends Component {
         if (user.message !== "Invalid User") {
         localStorage.setItem("jwtToken", user.jwt)
         localStorage.setItem("user_id", user.user.id)
-      }})
+        localStorage.setItem("username", user.user.username)
+          this.props.history.push('athletes')
+      } else {window.alert('Login Failed')}})
   }
 
   signup = (signUpParams) => {
@@ -58,6 +61,8 @@ class App extends Component {
         if (user.message !== "Invalid User") {
         localStorage.setItem("jwtToken", user.jwt)
         localStorage.setItem("user_id", user.user.id)
+        localStorage.setItem("username", user.user.username)
+        this.props.history.push('athletes')
       }})
   }
 
@@ -107,4 +112,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default withRouter(App)
