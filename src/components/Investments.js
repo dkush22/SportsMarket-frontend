@@ -1,21 +1,17 @@
 import React from 'react'
-import { deleteInvestment } from '../services/investment.js'
 import { fetchInvestments } from '../actions/investments.js'
 import { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
 
 
 
 class Investments extends React.Component {
-  constructor() {
-    super()
-  }
 
 
-
-handleSell = () => {
-	const investmentParams = {user_id: this.props.investment.user_id, nfl_athlete_id: this.props.investment.nfl_athlete_id}
-	deleteInvestment(investmentParams, this.props.fetchInvestments)
-}
+// handleSell = () => {
+// 	const investmentParams = {user_id: this.props.investment.user_id, nfl_athlete_id: this.props.investment.nfl_athlete_id}
+// 	deleteInvestment(investmentParams, this.props.fetchInvestments)
+// }
 
 render() {
 	return (
@@ -28,7 +24,7 @@ render() {
       <td>${(this.props.investment.quantity * this.props.investment.acquisition_price).toFixed(2)}</td>
       <td>${(this.props.investment.nfl_athlete.current_stock_value * this.props.investment.quantity).toFixed(2)}</td>
       <td className={(((this.props.investment.nfl_athlete.current_stock_value) - (this.props.investment.acquisition_price)) * (this.props.investment.quantity)).toFixed(2) > 0 ? 'positive' : 'negative' }>${(((this.props.investment.nfl_athlete.current_stock_value.toFixed(2)) - (this.props.investment.acquisition_price.toFixed(2))) * (this.props.investment.quantity)).toFixed(2)  }</td>
-      <td><button className="ui negative button" onClick={this.handleSell}>Sell</button></td>
+      <td><Link to={`/athletes/${this.props.investment.nfl_athlete_id}`}><button className="ui negative button">Sell</button></Link></td>
     </tr>
 	)
   }

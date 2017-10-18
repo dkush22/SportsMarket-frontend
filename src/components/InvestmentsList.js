@@ -21,8 +21,8 @@ componentDidMount() {
 	
 
 	render() {
-	const filteredUser = this.state.users.filter(user => user.id === parseInt(localStorage.getItem('user_id')))
-	const filteredInvestments = (this.props.investments ? this.props.investments.filter(investment => investment.user_id === parseInt(localStorage.getItem('user_id'))) : null)
+	const filteredUser = this.state.users.filter(user => user.id === parseInt(localStorage.getItem('user_id'), 10))
+	const filteredInvestments = (this.props.investments ? this.props.investments.filter(investment => investment.user_id === parseInt(localStorage.getItem('user_id'), 10)) : null)
 	const netTotal = (filteredInvestments ? (filteredInvestments.length ? filteredInvestments.map((investment) => parseFloat(((investment.nfl_athlete.current_stock_value.toFixed(2) - investment.acquisition_price.toFixed(2)) * investment.quantity).toFixed(2))) : null) : null)
 	var netTotalAdded = (netTotal ? netTotal.reduce(function(accumulator, currentValue) {
 		return accumulator + currentValue

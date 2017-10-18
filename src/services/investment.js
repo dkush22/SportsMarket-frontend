@@ -1,5 +1,5 @@
 
-export function newInvestment(investmentParams) {
+export function newInvestment(investmentParams, fetchInvestments) {
   const body = JSON.stringify(investmentParams)
   return fetch("http://localhost:3000/newinvestment", {
     method: 'post',
@@ -10,6 +10,7 @@ export function newInvestment(investmentParams) {
     }
   })
     .then((res) => res.json())
+    .then(() => fetchInvestments())
 
 }
 
@@ -26,5 +27,4 @@ export function deleteInvestment(investmentParams, fetchInvestments) {
   })
     .then((res) => res.json())
     .then(() => fetchInvestments()) 
-
 }

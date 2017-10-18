@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import AthleteContainer from './components/AthleteContainer.js'
-import AthleteInfo from './components/AthleteInfo.js'
 import './App.css';
 import {Route} from 'react-router-dom'
 import Footer from'./components/Footer.js'
@@ -49,7 +48,6 @@ class App extends Component {
         if (user.message !== "Invalid User") {
         localStorage.setItem("jwtToken", user.jwt)
         localStorage.setItem("user_id", user.user.id)
-        localStorage.setItem("username", user.user.username)
           this.props.history.push('athletes')
       } else {window.alert('Login Failed')}})
   }
@@ -61,7 +59,6 @@ class App extends Component {
         if (user.message !== "Invalid User") {
         localStorage.setItem("jwtToken", user.jwt)
         localStorage.setItem("user_id", user.user.id)
-        localStorage.setItem("username", user.user.username)
         this.props.history.push('athletes')
       }})
   }

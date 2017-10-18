@@ -43,7 +43,7 @@ class Signup extends React.Component {
       confirmedPassword: ''
     }) 
     this.props.history.push('athletes')
-  } else {alert("Your Passwords Don't Match")
+  } else {alert("Invalid Signup. Passwords Don't Match")
       this.setState({
         password: '',
         confirmedPassword: ''
