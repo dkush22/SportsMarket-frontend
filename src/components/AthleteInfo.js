@@ -3,6 +3,7 @@ import { newInvestment } from '../services/investment.js'
 import { Link } from 'react-router-dom'
 import { deleteInvestment } from '../services/investment.js'
 import { fetchInvestments } from '../actions/investments.js'
+import { modifyInvestment } from '../services/investment.js'
 import { connect } from 'react-redux'
 
 
@@ -36,7 +37,13 @@ handleBuyButton = (event) => {
 }
 
 handleSellButton = (event) => {
-console.log('Sell Some')
+const filteredNFL = this.props.nflAthletes.filter(player => player.id === parseInt(window.location.pathname.split('/')[2], 10))
+const modifiedInvestmentParams = {user_id: parseInt(localStorage.getItem('user_id'), 10), nfl_athlete_id: filteredNFL[0].id, quantity: this.state.sellQuantity}
+modifyInvestment(modifiedInvestmentParams, this.props.fetchInvestments)
+this.setState({
+		buyQuantity: 0,
+		sellQuantity: 0,
+	})
 }
 
 handleSellAllButton = () => {
@@ -64,14 +71,16 @@ handleBuyShares = (event) => {
 }
 
 handleSellShares = (event) => {
-console.log(event.target.value)
+this.setState({
+	sellQuantity: parseInt(event.target.value, 10)
+})
 }
 
 makeInputs = () => {
 const filteredInvestments = this.props.investments.filter(investment => investment.user_id === parseInt(localStorage.getItem('user_id'), 10))
 const furtherFilteredInvestments = filteredInvestments.filter(investment => investment.nfl_athlete_id === parseInt(window.location.pathname.split('/')[2], 10))
 let finalArray = []
-for (let i = 0; i <= furtherFilteredInvestments[0].quantity; i++) {
+for (let i = 0; i <= furtherFilteredInvestments[0].quantity - 1; i++) {
 finalArray.push(<option value={i} key={i}>{i}</option>)
 }
 return finalArray
