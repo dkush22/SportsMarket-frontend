@@ -5,6 +5,7 @@ import { deleteInvestment } from '../services/investment.js'
 import { fetchInvestments } from '../actions/investments.js'
 import { modifyInvestment } from '../services/investment.js'
 import { connect } from 'react-redux'
+import Select from './Select.js'
 
 
 
@@ -36,7 +37,7 @@ handleBuyButton = (event) => {
 	})}
 }
 
-handleSellButton = (event) => {
+handleSellPartialButton = (event) => {
 const filteredNFL = this.props.nflAthletes.filter(player => player.id === parseInt(window.location.pathname.split('/')[2], 10))
 const modifiedInvestmentParams = {user_id: parseInt(localStorage.getItem('user_id'), 10), nfl_athlete_id: filteredNFL[0].id, quantity: this.state.sellQuantity}
 modifyInvestment(modifiedInvestmentParams, this.props.fetchInvestments)
@@ -57,7 +58,7 @@ this.setState({
 
 }
 
-handleBuyShares = (event) => {
+handleChangeBuy = (event) => {
 
 	if (event.target.value > 0) {
 	this.setState({
@@ -70,7 +71,7 @@ handleBuyShares = (event) => {
 }
 }
 
-handleSellShares = (event) => {
+handleChangeSell = (event) => {
 this.setState({
 	sellQuantity: parseInt(event.target.value, 10)
 })
@@ -80,8 +81,39 @@ makeInputs = () => {
 const filteredInvestments = this.props.investments.filter(investment => investment.user_id === parseInt(localStorage.getItem('user_id'), 10))
 const furtherFilteredInvestments = filteredInvestments.filter(investment => investment.nfl_athlete_id === parseInt(window.location.pathname.split('/')[2], 10))
 let finalArray = []
-for (let i = 0; i <= furtherFilteredInvestments[0].quantity - 1; i++) {
+for (let j = 0; j < furtherFilteredInvestments.length; j++) {
+for (let i = 0; i <= furtherFilteredInvestments[j].quantity - 1; i++) {
 finalArray.push(<option value={i} key={i}>{i}</option>)
+}
+}
+return finalArray
+}
+
+makeSellInvestments = () => {
+const filteredNFL = this.props.nflAthletes.filter(player => player.id === parseInt(window.location.pathname.split('/')[2], 10))
+const filteredInvestments = this.props.investments.filter(investment => investment.user_id === parseInt(localStorage.getItem('user_id'), 10))
+const furtherFilteredInvestments = filteredInvestments.filter(investment => investment.nfl_athlete_id === parseInt(window.location.pathname.split('/')[2], 10))
+let finalArray = []
+for (let i = 0; i < furtherFilteredInvestments.length; i++ ) {
+finalArray.push(furtherFilteredInvestments ? (furtherFilteredInvestments[i] ? (furtherFilteredInvestments[i].nfl_athlete_id === parseInt(window.location.pathname.split('/')[2], 10) ?	<div className="ui form">
+  <h3>You currently own {furtherFilteredInvestments[i].quantity} share(s) of {filteredNFL ? (filteredNFL[0] ? filteredNFL[0].name : null) : null} at a price of ${furtherFilteredInvestments[i].acquisition_price}</h3>
+  <div className="fields">
+    <div className="field">
+      <label># of Shares</label>
+      <select className="ui dropdown"  onChange={this.handleChangeSell}>
+      <option value="" ></option>
+     {this.makeInputs()}
+      </select>
+    </div>
+    <div className="field">
+      <label>Total Spending</label>
+      <input type="text" placeholder="Total Spending" value={filteredNFL ? (filteredNFL[0] ? (Number.isInteger(parseInt(this.state.sellQuantity, 10)) ? (this.state.sellQuantity * filteredNFL[0].current_stock_value.toFixed(2)) : 0) : '') : ''}/>
+    </div>
+    <button className="negative ui button" onClick={this.handleSellButton}>Sell</button>
+    <button className="negative ui button" onClick={this.handleSellAllButton}>Sell All</button>
+    <h3>{this.state.sellMessage ? this.state.sellMessage : null}</h3>
+  </div>
+</div> : null) : null) : null)
 }
 return finalArray
 }
@@ -120,7 +152,7 @@ render() {
   <div className="fields">
     <div className="field">
       <label># of Shares</label>
-      <input onChange={this.handleBuyShares} type="text" placeholder="Number of Shares" value={this.state.buyQuantity}/>
+      <input onChange={this.handleChangeBuy} type="text" placeholder="Number of Shares" value={this.state.buyQuantity}/>
     </div>
     <div className="field">
       <label>Total Spending</label>
@@ -130,25 +162,7 @@ render() {
     <h3>{this.state.buyMessage ? this.state.buyMessage : null}</h3>
   </div>
 </div>
-{ furtherFilteredInvestments ? (furtherFilteredInvestments[0] ? (furtherFilteredInvestments[0].nfl_athlete_id === parseInt(window.location.pathname.split('/')[2], 10) ?	<div className="ui form">
-  <h3>You currently own {furtherFilteredInvestments[0].quantity} share(s) of {filteredNFL ? (filteredNFL[0] ? filteredNFL[0].name : null) : null}</h3>
-  <div className="fields">
-    <div className="field">
-      <label># of Shares</label>
-      <select className="ui dropdown" onChange={this.handleSellShares}>
-      <option value=""></option>
-     {this.makeInputs()}
-      </select>
-    </div>
-    <div className="field">
-      <label>Total Spending</label>
-      <input type="text" placeholder="Total Spending" value={filteredNFL ? (filteredNFL[0] ? (Number.isInteger(parseInt(this.state.sellQuantity, 10)) ? (this.state.sellQuantity * filteredNFL[0].current_stock_value.toFixed(2)) : 0) : '') : ''}/>
-    </div>
-    <button className="negative ui button" onClick={this.handleSellButton}>Sell</button>
-    <button className="negative ui button" onClick={this.handleSellAllButton}>Sell All</button>
-    <h3>{this.state.sellMessage ? this.state.sellMessage : null}</h3>
-  </div>
-</div> : null) : null) : null}
+{furtherFilteredInvestments.map((investment, index) => <Select key={index} investment={investment} nflAthletes={filteredNFL} onSellPartial={this.handleSellPartialButton} onSellAll={this.handleSellAllButton} onHandleSell={this.handleChangeSell}/> ) }
 <Link to={`/users/${localStorage.getItem('user_id')}`}><button className="ui button">Go to Profile</button></Link>
 </div>
 	)
