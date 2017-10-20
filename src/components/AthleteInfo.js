@@ -38,9 +38,6 @@ handleBuyButton = (event) => {
 
 
 handleSellPartialButton = (event) => {
-const filteredNFL = this.props.nflAthletes.filter(player => player.id === parseInt(window.location.pathname.split('/')[2], 10))
-const modifiedInvestmentParams = {user_id: parseInt(localStorage.getItem('user_id'), 10), nfl_athlete_id: filteredNFL[0].id, quantity: this.state.sellQuantity}
-modifyInvestment(modifiedInvestmentParams, this.props.fetchInvestments)
 this.setState({
 		buyQuantity: 0,
 		sellQuantity: 0,
@@ -124,7 +121,7 @@ render() {
 	const filteredNFL = this.props.nflAthletes.filter(player => player.id === parseInt(window.location.pathname.split('/')[2], 10))
 	const filteredInvestments = this.props.investments.filter(investment => investment.user_id === parseInt(localStorage.getItem('user_id'), 10))
 	const furtherFilteredInvestments = filteredInvestments.filter(investment => investment.nfl_athlete_id === parseInt(window.location.pathname.split('/')[2], 10))
-	return (
+  return (
 		<div>
 		<h1>{filteredNFL ? (filteredNFL[0] ? filteredNFL[0].name : null) : null}</h1>
 	<table className="ui blue table">
