@@ -60,7 +60,7 @@ class App extends Component {
         localStorage.setItem("jwtToken", user.jwt)
         localStorage.setItem("user_id", user.user.id)
         this.props.history.push('athletes')
-      }})
+      } else {window.alert('Signup Failed! Username already exists!')}})
   }
 
   logout = () => {

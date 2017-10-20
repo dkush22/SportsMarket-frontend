@@ -6,11 +6,6 @@ import AthleteInfo from './AthleteInfo.js'
 const Athlete = (props) => {
 
 
-function handleSellButton(event) {
-	// const investmentParams = "hello"
-	// console.log(investmentParams)
-	// newInvestment(investmentParams)
-}
 
 
 	const filteredInvestments = props.investments.filter(investment => investment.user_id === parseInt(localStorage.getItem('user_id'), 10))

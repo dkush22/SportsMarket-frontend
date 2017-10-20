@@ -28,7 +28,6 @@ handleBuyButton = (event) => {
 	this.setState({
 		buyQuantity: 0,
 		sellQuantity: 0,
-		buyMessage: "Success! Go to Profile to see your investment!"
 	})}
 	else {this.setState({
 		buyQuantity: 0,
@@ -36,6 +35,7 @@ handleBuyButton = (event) => {
 		buyMessage: "Invalid!"
 	})}
 }
+
 
 handleSellPartialButton = (event) => {
 const filteredNFL = this.props.nflAthletes.filter(player => player.id === parseInt(window.location.pathname.split('/')[2], 10))
@@ -133,8 +133,8 @@ render() {
     		<th>Position</th>
     		<th>Team</th>
     		<th>Current Stock Value</th>
-    		{filteredNFL ? (filteredNFL[0] ? (filteredNFL[0].position === "QB" ? <th>Passing Yards</th> : filteredNFL[0].position === "RB" ? <th>Rushing Yards</th> : filteredNFL[0].position === "WR" ? <th>Receiving Yards</th> : null) : null) : null}
-    		{filteredNFL ? (filteredNFL[0] ? (filteredNFL[0].position === "QB" ? <th>Passing Touchdowns</th> : filteredNFL[0].position === "RB" ? <th>Rushing Touchdowns</th> : filteredNFL[0].position === "WR" ? <th>Receiving Touchdowns</th> : null) : null) : null}
+    		{filteredNFL ? (filteredNFL[0] ? (filteredNFL[0].position === "QB" ? <th>Passing Yards</th> : filteredNFL[0].position === "RB" ? <th>Rushing Yards</th> : filteredNFL[0].position === "WR" || "TE" ? <th>Receiving Yards</th> : null) : null) : null}
+    		{filteredNFL ? (filteredNFL[0] ? (filteredNFL[0].position === "QB" ? <th>Passing Touchdowns</th> : filteredNFL[0].position === "RB" ? <th>Rushing Touchdowns</th> : filteredNFL[0].position === "WR" || "TE" ? <th>Receiving Touchdowns</th> : null) : null) : null}
   			</tr>
   			</thead>
   		<tbody>
@@ -142,8 +142,8 @@ render() {
 		    <td>{filteredNFL ? (filteredNFL[0] ? filteredNFL[0].position : null) : null}</td>
 		    <td>{filteredNFL ? (filteredNFL[0] ? filteredNFL[0].team : null) : null}</td>
 		    <td>${filteredNFL ? (filteredNFL[0] ? filteredNFL[0].current_stock_value.toFixed(2) : null) : null}</td>
-    		{filteredNFL ? (filteredNFL[0] ? (filteredNFL[0].position === "QB" ? <td>{filteredNFL[0].passing_yards}</td> : filteredNFL[0].position === "RB" ? <td>{filteredNFL[0].rushing_yards}</td> : filteredNFL[0].position === "WR" ? <td>{filteredNFL[0].receiving_yards}</td> : null) : null) : null}
-    		{filteredNFL ? (filteredNFL[0] ? (filteredNFL[0].position === "QB" ? <td>{filteredNFL[0].passing_touchdowns}</td> : filteredNFL[0].position === "RB" ? <td>{filteredNFL[0].rushing_touchdowns}</td> : filteredNFL[0].position === "WR" ? <td>{filteredNFL[0].receiving_touchdowns}</td> : null) : null) : null}
+    		{filteredNFL ? (filteredNFL[0] ? (filteredNFL[0].position === "QB" ? <td>{filteredNFL[0].passing_yards}</td> : filteredNFL[0].position === "RB" ? <td>{filteredNFL[0].rushing_yards}</td> : filteredNFL[0].position === "WR" || "TE" ? <td>{filteredNFL[0].receiving_yards}</td> : null) : null) : null}
+    		{filteredNFL ? (filteredNFL[0] ? (filteredNFL[0].position === "QB" ? <td>{filteredNFL[0].passing_touchdowns}</td> : filteredNFL[0].position === "RB" ? <td>{filteredNFL[0].rushing_touchdowns}</td> : filteredNFL[0].position === "WR" || "TE" ? <td>{filteredNFL[0].receiving_touchdowns}</td> : null) : null) : null}
     	 </tr>
   		</tbody>
 	</table>
@@ -162,7 +162,7 @@ render() {
     <h3>{this.state.buyMessage ? this.state.buyMessage : null}</h3>
   </div>
 </div>
-{furtherFilteredInvestments.map((investment, index) => <Select key={index} investment={investment} nflAthletes={filteredNFL} onSellPartial={this.handleSellPartialButton} onSellAll={this.handleSellAllButton} onHandleSell={this.handleChangeSell}/> ) }
+{furtherFilteredInvestments.map((investment, index) => <Select key={index} investment={investment} nflAthletes={filteredNFL} onSellPartial={this.handleSellPartialButton} onSellAll={this.handleSellAllButton} onHandleSell={this.handleChangeSell} sellQuantity={this.state.sellQuantity}/> ) }
 <Link to={`/users/${localStorage.getItem('user_id')}`}><button className="ui button">Go to Profile</button></Link>
 </div>
 	)

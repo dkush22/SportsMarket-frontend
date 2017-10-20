@@ -25,10 +25,6 @@ return (
       {this.makeInputs()}
       </select>
     </div>
-    <div className="field">
-      <label>Total Spending</label>
-      <input type="text" placeholder="Total Spending" value={10}/>
-    </div>
     <button className="negative ui button" onClick={this.props.onSellPartial}>Sell</button>
     <button className="negative ui button" onClick={this.props.onSellAll}>Sell All</button>
   </div>
