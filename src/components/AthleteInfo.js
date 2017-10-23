@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 import { fetchInvestments } from '../actions/investments.js'
 import { connect } from 'react-redux'
 import Select from './Select.js'
+import AthleteGraph from './AthleteGraph.js'
 
 
 
@@ -156,6 +157,7 @@ render() {
 </div>  : null}
 {furtherFilteredInvestments.map((investment, index) => <Select key={index} investment={investment} nflAthletes={filteredNFL} onSellPartial={this.handleSellPartialButton} onSellAll={this.handleSellAllButton} onHandleSell={this.handleChangeSell} sellQuantity={this.state.sellQuantity}/> ) }
 { localStorage.getItem('jwtToken') ? <Link to={`/users/${localStorage.getItem('user_id')}`}><button className="ui button">Go to Profile</button></Link> : null}
+<AthleteGraph />
 </div>
 	)
 	}
