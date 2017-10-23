@@ -1,9 +1,7 @@
 import React from 'react'
 import { newInvestment } from '../services/investment.js'
 import { Link } from 'react-router-dom'
-import { deleteInvestment } from '../services/investment.js'
 import { fetchInvestments } from '../actions/investments.js'
-import { modifyInvestment } from '../services/investment.js'
 import { connect } from 'react-redux'
 import Select from './Select.js'
 
@@ -45,9 +43,6 @@ this.setState({
 }
 
 handleSellAllButton = () => {
-const filteredNFL = this.props.nflAthletes.filter(player => player.id === parseInt(window.location.pathname.split('/')[2], 10))
-const investmentParams = {user_id: parseInt(localStorage.getItem('user_id'), 10), nfl_athlete_id: filteredNFL[0].id}
-deleteInvestment(investmentParams, this.props.fetchInvestments)
 this.setState({
 		buyQuantity: 0,
 		sellQuantity: 0,
@@ -144,7 +139,7 @@ render() {
     	 </tr>
   		</tbody>
 	</table>
-
+{ localStorage.getItem('jwtToken') ?
 	<div className="ui form">
   <div className="fields">
     <div className="field">
@@ -158,9 +153,9 @@ render() {
     <button className="positive ui button" onClick={this.handleBuyButton}>Buy</button>
     <h3>{this.state.buyMessage ? this.state.buyMessage : null}</h3>
   </div>
-</div>
+</div>  : null}
 {furtherFilteredInvestments.map((investment, index) => <Select key={index} investment={investment} nflAthletes={filteredNFL} onSellPartial={this.handleSellPartialButton} onSellAll={this.handleSellAllButton} onHandleSell={this.handleChangeSell} sellQuantity={this.state.sellQuantity}/> ) }
-<Link to={`/users/${localStorage.getItem('user_id')}`}><button className="ui button">Go to Profile</button></Link>
+{ localStorage.getItem('jwtToken') ? <Link to={`/users/${localStorage.getItem('user_id')}`}><button className="ui button">Go to Profile</button></Link> : null}
 </div>
 	)
 	}

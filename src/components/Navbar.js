@@ -3,6 +3,7 @@ import '../App.css';
 import {NavLink} from 'react-router-dom'
 // import footballMoney from '../footballmoney.jpg'
 import rodgersDollar from '../rodgersDollar.jpg'
+import Whitebackground from '../Dark_background.jpg'
 
 const Navbar = (props) => {
       
@@ -11,7 +12,7 @@ if (localStorage.getItem('jwtToken')) {
     <div className="ui menu inverted blue">
       <div className="ui container">
       	<img src={rodgersDollar} className="App-logo" alt="logo" />
-      	<h1 className="item left">SportsMarket</h1>
+      	<img src={Whitebackground} className="App-logo" alt="logo" />
       	<img src={rodgersDollar} className="App-logo" alt="logo" />
         <NavLink className="item right" to={`/users/${localStorage.getItem('user_id')}`} exact activeStyle={{background: 'hotpink'}}>Profile</NavLink>
         <NavLink className="item" to="/athletes" exact activeStyle={{background: 'hotpink'}}>Athletes</NavLink>
@@ -23,7 +24,7 @@ if (localStorage.getItem('jwtToken')) {
     <div className="ui menu inverted blue">
       <div className="ui container">
         <img src={rodgersDollar} className="App-logo" alt="logo" />
-        <h1 className="item left">SportsMarket</h1>
+        <img src={Whitebackground} className="App-logo" alt="logo" />
         <img src={rodgersDollar} className="App-logo" alt="logo" />
         <NavLink className="item right" to={`/users/${localStorage.getItem('user_id')}`} exact activeStyle={{background: 'hotpink'}}>Profile</NavLink>
         <NavLink className="item" to="/athletes" exact activeStyle={{background: 'hotpink'}}>Athletes</NavLink>

@@ -82,8 +82,8 @@ class App extends Component {
                  }} />
       <Route path="/athletes" render={(props) => <AthleteContainer {...props} /> }/>
 
-      <Route path="/login" render={() => <Redirect to='/home'/>} />
-      <Route exact path='/signup' render={() => <Redirect to='/home'/>} />
+      <Route path="/login" render={() => <Redirect to='/athletes'/>} />
+      <Route exact path='/signup' render={() => <Redirect to='/athletes'/>} />
       <Route exact path="/sitemap" render={(props) => <SiteMap />} /> 
       <Route exact path="/contact" render={(props) => <Contacts />} /> 
       <Route exact path="/termsandconditions" render={(props) => <TermsAndConditions />} /> 
@@ -94,6 +94,7 @@ class App extends Component {
       return (
       <div className="App">
       <Route path='/' render={(props) => <Navbar onClick={this.logout}/> } />
+      <Route exact path='/' render={() => <Welcome />}/>
       <Route path="/users/" render={() =><Redirect to='/login'/>}/>
       <Route path="/athletes" render={(props) => <AthleteContainer {...props} /> }/>
       <Route path="/login" render={(props) => <Login onLogin={this.login} {...props} /> }/>

@@ -11,8 +11,11 @@ export function newInvestment(investmentParams, fetchInvestments) {
   })
     .then((res) => res.json())
     .then((res) => {
+      console.log(res)
       if (res.message === "You can't go below $0") {
       window.alert("You do not have enough money for this investment")}
+      else if (res.message === "Can't invest with quantity of 0") {
+      window.alert("You can't make an investment with a quantity of 0")}
       else {
       fetchInvestments()}}
       )

@@ -2,6 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { fetchInvestments } from '../actions/investments.js'
 import { modifyInvestment } from '../services/investment.js'
+import { deleteInvestment } from '../services/investment.js'
 
 
 
@@ -28,6 +29,12 @@ modifyInvestment(modifiedInvestmentParams, this.props.fetchInvestments)
 this.props.onSellPartial()
 }
 
+handleSellAll = () => {
+const investmentParams = {id: this.props.investment.id}
+deleteInvestment(investmentParams, this.props.fetchInvestments)
+this.props.onSellAll()
+}
+
 handleChangeSell = (event) => {
 this.setState({
   quantity: parseInt(event.target.value, 10)
@@ -48,7 +55,7 @@ return (
       </select>
     </div>
     <button className="negative ui button" onClick={this.handleSellPartial}>Sell</button>
-    <button className="negative ui button" onClick={this.props.onSellAll}>Sell All</button>
+    <button className="negative ui button" onClick={this.handleSellAll}>Sell All</button>
   </div>
  </div>
  </div>
