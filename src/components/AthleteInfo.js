@@ -2,6 +2,7 @@ import React from 'react'
 import { newInvestment } from '../services/investment.js'
 import { Link } from 'react-router-dom'
 import { fetchInvestments } from '../actions/investments.js'
+import { fetchUsers } from '../actions/users.js'
 import { connect } from 'react-redux'
 import Select from './Select.js'
 import AthleteGraph from './AthleteGraph.js'
@@ -10,6 +11,10 @@ import AthleteGraph from './AthleteGraph.js'
 
 class AthleteInfo extends React.Component {
 
+
+componentDidMount() {
+  this.props.fetchUsers()
+}
 
 constructor() {
 	super()
@@ -114,12 +119,14 @@ return finalArray
 
 
 render() {
+  const filteredUser = this.props.users.filter(user => user.id === parseInt(localStorage.getItem('user_id'), 10))
 	const filteredNFL = this.props.nflAthletes.filter(player => player.id === parseInt(window.location.pathname.split('/')[2], 10))
 	const filteredInvestments = this.props.investments.filter(investment => investment.user_id === parseInt(localStorage.getItem('user_id'), 10))
 	const furtherFilteredInvestments = filteredInvestments.filter(investment => investment.nfl_athlete_id === parseInt(window.location.pathname.split('/')[2], 10))
   return (
 		<div>
 		<h1>{filteredNFL ? (filteredNFL[0] ? filteredNFL[0].name : null) : null}</h1>
+    <h2>Budget: ${filteredUser ? (filteredUser[0] ? filteredUser[0].budget.toFixed(2) : null) : null}</h2>
 	<table className="ui blue table">
   			<thead>
     		<tr>
@@ -157,20 +164,29 @@ render() {
 </div>  : null}
 {furtherFilteredInvestments.map((investment, index) => <Select key={index} investment={investment} nflAthletes={filteredNFL} onSellPartial={this.handleSellPartialButton} onSellAll={this.handleSellAllButton} onHandleSell={this.handleChangeSell} sellQuantity={this.state.sellQuantity}/> ) }
 { localStorage.getItem('jwtToken') ? <Link to={`/users/${localStorage.getItem('user_id')}`}><button className="ui button">Go to Profile</button></Link> : null}
-<AthleteGraph />
+<AthleteGraph nflAthletes={this.props.nflAthletes} />
 </div>
 	)
 	}
+}
+
+function mapStateToProps(state) {
+  return {
+    users: state.users.user.users
+  }
 }
 
 function mapDispatchToProps(dispatch) {
   return {
     fetchInvestments: () => {
       dispatch(fetchInvestments())
+    },
+    fetchUsers: () => {
+      dispatch(fetchUsers())
     }
   }
 }
 
 
 
-export default connect(null, mapDispatchToProps)(AthleteInfo)
+export default connect(mapStateToProps, mapDispatchToProps)(AthleteInfo)

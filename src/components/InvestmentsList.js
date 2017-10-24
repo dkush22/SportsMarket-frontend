@@ -1,5 +1,6 @@
 import React from 'react'
 import Investments from './Investments.js'
+import InvestmentsPie from './InvestmentsPie.js'
 
 
 class InvestmentsList extends React.Component {
@@ -57,11 +58,12 @@ componentDidMount() {
 		<td></td>
 		<td></td>
 		<td></td>
-		<td>{isNaN(netTotalAdded) || netTotalAdded === 0 ? 'TOTAL:' : null}</td>
-		<td className={netTotalAdded >= 0 ? 'positive' : 'negative'}>{isNaN(netTotalAdded) || netTotalAdded === 0 ? `$${parseFloat(netTotalAdded).toFixed(2)}` : null}</td>
+		<td>{!isNaN(netTotalAdded) || netTotalAdded === 0 ? 'TOTAL:' : null}</td>
+		<td className={netTotalAdded >= 0 ? 'positive' : 'negative'}>{!isNaN(netTotalAdded) || netTotalAdded === 0 ? `$${parseFloat(netTotalAdded).toFixed(2)}` : null}</td>
 		</tr>
 		</tbody>
 		</table>
+		<InvestmentsPie investments={filteredInvestments} />
 		</div>
 		)
 	}

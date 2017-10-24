@@ -23,7 +23,7 @@ export function newInvestment(investmentParams, fetchInvestments) {
 }
 
 
-export function deleteInvestment(investmentParams, fetchInvestments) {
+export function deleteInvestment(investmentParams, fetchInvestments, fetchUsers) {
   const body = JSON.stringify(investmentParams)
   return fetch("http://localhost:3000/deleteinvestment", {
     method: 'DELETE',
@@ -35,10 +35,11 @@ export function deleteInvestment(investmentParams, fetchInvestments) {
   })
     .then((res) => res.json())
     .then(() => fetchInvestments()) 
+    .then(() => fetchUsers())
 }
 
 
-export function modifyInvestment(modifiedInvestmentParams, fetchInvestments) {
+export function modifyInvestment(modifiedInvestmentParams, fetchInvestments, fetchUsers) {
   const body = JSON.stringify(modifiedInvestmentParams)
   return fetch("http://localhost:3000/investments", {
     method: 'PATCH',
@@ -50,4 +51,5 @@ export function modifyInvestment(modifiedInvestmentParams, fetchInvestments) {
   })
     .then((res) => res.json())
     .then(() => fetchInvestments())
+    .then(() => fetchUsers())
 }

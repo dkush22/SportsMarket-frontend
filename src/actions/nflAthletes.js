@@ -32,7 +32,6 @@ export function searchNFLAthletesByName(name) {
       .then((json) => {
       	const nflAthletes = json
         const filtered =nflAthletes.filter(player => player.name.toLowerCase().includes(name.toLowerCase()))
-        console.log(filtered)
         dispatch(fetchedNFLAthletes(filtered))
       })
   }

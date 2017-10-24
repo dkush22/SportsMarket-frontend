@@ -1,6 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { fetchInvestments } from '../actions/investments.js'
+import { fetchUsers } from '../actions/users.js'
 import { modifyInvestment } from '../services/investment.js'
 import { deleteInvestment } from '../services/investment.js'
 
@@ -25,13 +26,13 @@ return finalArray
 
 handleSellPartial = () => {
 const modifiedInvestmentParams = {id: this.props.investment.id, quantity: this.state.quantity}
-modifyInvestment(modifiedInvestmentParams, this.props.fetchInvestments)
+modifyInvestment(modifiedInvestmentParams, this.props.fetchInvestments, this.props.fetchUsers)
 this.props.onSellPartial()
 }
 
 handleSellAll = () => {
 const investmentParams = {id: this.props.investment.id}
-deleteInvestment(investmentParams, this.props.fetchInvestments)
+deleteInvestment(investmentParams, this.props.fetchInvestments, this.props.fetchUsers)
 this.props.onSellAll()
 }
 
@@ -69,6 +70,9 @@ function mapDispatchToProps(dispatch) {
   return {
     fetchInvestments: () => {
       dispatch(fetchInvestments())
+    },
+    fetchUsers: () => {
+      dispatch(fetchUsers())
     }
   }
 }

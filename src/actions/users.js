@@ -18,7 +18,7 @@ export function fetchUsers() {
       .then((res) => res.json())
       .then((json) => {
         const users = json
-        dispatch(fetchedInvestments(users))
+        dispatch(fetchedUsers(users))
       })
   }
 }
