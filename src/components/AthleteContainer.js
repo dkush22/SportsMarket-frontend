@@ -16,8 +16,10 @@ componentDidMount() {
 }
 
 render() {
+const mappedAthletes = this.props.nflAthletes.map(player => `${player.name}: $${player.current_stock_value.toFixed(2)}`)
 	return (
 	<div>
+		<h3 className="ui block header"><marquee>{mappedAthletes.toString().replace(/\,/g,"   ||  ")}</marquee></h3>
 		{window.location.href === "http://localhost:3001/athletes" ? <AthletesForm/> : null}
 		{window.location.href === "http://localhost:3001/athletes" ? <h3><a href="/compare"> Compare Athletes</a></h3> : null}
 		{localStorage.getItem('jwtToken') ? null : <strong>You are not logged in <div className="ui buttons"><Link to={'/login'}><button className="ui button">Login</button></Link><div className="or"></div><Link to={'/signup'}><button className="ui button">Signup</button></Link></div></strong>}

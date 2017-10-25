@@ -105,6 +105,7 @@ class App extends Component {
       <Route exact path="/sitemap" render={(props) => <SiteMap />} /> 
       <Route exact path="/contact" render={(props) => <Contacts />} /> 
       <Route exact path="/termsandconditions" render={(props) => <TermsAndConditions />} /> 
+      <Route exact path="/privacy" render={(props) => <PrivacyPolicy />} /> 
       <Footer />
       </div>
     )

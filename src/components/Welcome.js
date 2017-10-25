@@ -16,13 +16,13 @@ componentDidMount() {
 
 
 render() {
-const mappedAthletes = this.props.nflAthletes.map(player => <li>{player.name}: ${player.current_stock_value.toFixed(2)}</li>)
+const mappedAthletes = this.props.nflAthletes.map(player => `${player.name}: $${player.current_stock_value.toFixed(2)}`)
 const runningBacks = this.props.nflAthletes.filter(player => player.position === "RB")
 const wideReceivers = this.props.nflAthletes.filter(player => player.position === "WR")
 const tightEnds = this.props.nflAthletes.filter(player => player.position === "TE")
 return (
 	<div>
-	<marquee>Hello</marquee>
+	<h3 className="ui block header"><marquee>{mappedAthletes.toString().replace(/\,/g,"   ||  ")}</marquee></h3>
 <table className="ui celled table">
   <thead>
     <tr>
