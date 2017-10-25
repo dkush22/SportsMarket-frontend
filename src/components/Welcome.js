@@ -2,6 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { fetchNFLAthletes } from '../actions/nflAthletes.js'
 import { Link } from 'react-router-dom'
+import '../App.css';
 
 
 
@@ -12,13 +13,16 @@ componentDidMount() {
 }
 
 
+
+
 render() {
+const mappedAthletes = this.props.nflAthletes.map(player => <li>{player.name}: ${player.current_stock_value.toFixed(2)}</li>)
 const runningBacks = this.props.nflAthletes.filter(player => player.position === "RB")
 const wideReceivers = this.props.nflAthletes.filter(player => player.position === "WR")
 const tightEnds = this.props.nflAthletes.filter(player => player.position === "TE")
 return (
 	<div>
-	<h1>Top Current Performers</h1>
+	<marquee>Hello</marquee>
 <table className="ui celled table">
   <thead>
     <tr>

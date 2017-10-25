@@ -125,6 +125,7 @@ render() {
 	const furtherFilteredInvestments = filteredInvestments.filter(investment => investment.nfl_athlete_id === parseInt(window.location.pathname.split('/')[2], 10))
   return (
 		<div>
+    <h3><a href="/compare"> Compare Athletes</a></h3>
 		<h1>{filteredNFL ? (filteredNFL[0] ? filteredNFL[0].name : null) : null}</h1>
     <h2>Budget: ${filteredUser ? (filteredUser[0] ? filteredUser[0].budget.toFixed(2) : null) : null}</h2>
 	<table className="ui blue table">
