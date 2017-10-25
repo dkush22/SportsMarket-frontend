@@ -40,7 +40,6 @@ compare = (event) => {
 		playerOne: oneNFL,
 		playerTwo: twoNFL
 	})
-console.log(this.state)
 }
 
 // getRandomColor = () => {
@@ -79,9 +78,15 @@ var barData = {
         data: [`${this.state.playerTwo ? (this.state.playerTwo[0] ? this.state.playerTwo[0].initial_stock_value.toFixed(2) : null) : null}`, `${this.state.playerTwo ? (this.state.playerTwo[0] ? this.state.playerTwo[0].current_stock_value.toFixed(2) : null) : null}`],
       }]
     };
-// var barOptions = {
-
-//     };
+var barOptions = {
+    scales: {
+        yAxes: [{
+            ticks: {
+                beginAtZero: true
+            }
+        }]
+    }
+}
 var lineChartData = {
 labels: ["Week 1", "Week 2", "Week 3", "Week 4", "Week 5", "Week 6", "Week 7"],
 datasets: [
@@ -114,7 +119,7 @@ return (
 {this.state.playerOne ? `${this.state.playerOne[0].name}: $${this.state.playerOne[0].current_stock_value.toFixed(2)}` : null} <br/>
 {this.state.playerTwo ? `${this.state.playerTwo[0].name}: $${this.state.playerTwo[0].current_stock_value.toFixed(2)}` : null}
 {this.state.playerOne ? <Line data={lineChartData} options={lineChartOptions} width={1100} height={150} /> : null}
-{this.state.playerOne ? <Bar data={barData}  width="600" height="250" /> : null}
+{this.state.playerOne ? <Bar data={barData} options={barOptions}  width={600} height={250} /> : null}
 </div>
 )
 }

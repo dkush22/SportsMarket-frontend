@@ -1,5 +1,5 @@
 
-export function newInvestment(investmentParams, fetchInvestments) {
+export function newInvestment(investmentParams, fetchInvestments, fetchUsers) {
   const body = JSON.stringify(investmentParams)
   return fetch("http://localhost:3000/newinvestment", {
     method: 'post',
@@ -17,7 +17,8 @@ export function newInvestment(investmentParams, fetchInvestments) {
       else if (res.message === "Can't invest with quantity of 0") {
       window.alert("You can't make an investment with a quantity of 0")}
       else {
-      fetchInvestments()}}
+      fetchInvestments()
+      fetchUsers()}}
       )
 
 }

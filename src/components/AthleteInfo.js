@@ -28,7 +28,7 @@ handleBuyButton = (event) => {
 	const filteredNFL = this.props.nflAthletes.filter(player => player.id === parseInt(window.location.pathname.split('/')[2], 10))
 	const investmentParams = {user_id: parseInt(localStorage.getItem('user_id'), 10), nfl_athlete_id: filteredNFL[0].id, quantity: parseInt(this.state.buyQuantity, 10), acquisition_price: parseFloat(filteredNFL[0].current_stock_value.toFixed(2))}
 	if (parseInt(this.state.buyQuantity, 10) !== 0 || !this.state.buyQuantity) {
-	newInvestment(investmentParams, this.props.fetchInvestments)
+	newInvestment(investmentParams, this.props.fetchInvestments, this.props.fetchUsers)
 	this.setState({
 		buyQuantity: 0,
 		sellQuantity: 0,

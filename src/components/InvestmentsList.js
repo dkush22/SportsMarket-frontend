@@ -34,7 +34,7 @@ componentDidMount() {
 			<h3 className="ui left floated header">{filteredUser ? (filteredUser.length ? filteredUser[0].username : null) : null}</h3>
 			<h3 className="ui right floated header">Budget: ${filteredUser ? (filteredUser.length ? (filteredUser[0].budget.toFixed(2)) : null) : null} </h3>
 		</div>
-		<h3>{!filteredInvestments.length ? "You currently have no investments." : null}<a href="/athletes"> Make an investment</a></h3>
+		<h3>{!filteredInvestments.length ? "You currently have no investments." : null}<a href="/athletes"> Make an investment</a><br/><a href="/compare"> Compare Athletes</a></h3>
 		<table className="ui selectable celled table">
 		  <thead>
     		<tr>
