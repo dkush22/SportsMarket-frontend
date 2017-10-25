@@ -4,13 +4,16 @@ import { fetchInvestments } from '../actions/investments.js'
 import { connect } from 'react-redux'
 import { Dropdown } from 'semantic-ui-react'
 import { Button } from 'semantic-ui-react'
+import { Line } from 'react-chartjs-2'
+import { Bar } from 'react-chartjs-2'
 
 class CompareAthlete extends React.Component {
 
 constructor() {
 	super()
 	this.state = {
-		compare: []
+		compareOne: "",
+		compareTwo: ""
 	}
 }
 
@@ -18,14 +21,37 @@ componentDidMount() {
 this.props.fetchNFLAthletes()
 }
 
-handleDropDown = (event) => {
-	if (!this.state.compare.includes(event.target.innerText) || (event.target.innerText.length !== 0)) {this.state.compare.push(event.target.innerText)}
-	console.log(this.state.compare)
+handleDropDownOne = (event) => {
+	this.setState({
+		compareOne: event.target.innerText
+	})
 }
 
-deletion = (event) => {
-	console.log("delete")
+handleDropDownTwo = (event) => {
+	this.setState({
+		compareTwo: event.target.innerText
+	})
 }
+
+compare = (event) => {
+	const oneNFL = this.props.nflAthletes.filter(player => player.name === this.state.compareOne)
+	const twoNFL = this.props.nflAthletes.filter(player => player.name === this.state.compareTwo)
+	this.setState({
+		playerOne: oneNFL,
+		playerTwo: twoNFL
+	})
+console.log(this.state)
+}
+
+// getRandomColor = () => {
+//   var letters = '0123456789ABCDEF';
+//   var color = '#';
+//   for (var i = 0; i < 6; i++) {
+//     color += letters[Math.floor(Math.random() * 16)];
+//   }
+//   return color;
+// }
+
 
 mapOverAthletes = () => {
 const playerOptions = []
@@ -38,12 +64,57 @@ return playerOptions
 }
 
 render() {
+var barData = {
+      labels: ["Initial Stock Price", "Current Stock Price"],
+      datasets: [{
+        label: `${this.state.playerOne ? this.state.playerOne[0].name : null}`,
+        backgroundColor: ["#3A00FF", "#3A00FF"],
+        borderWidth: 1,
+        data: [`${this.state.playerOne ? (this.state.playerOne[0] ? this.state.playerOne[0].initial_stock_value.toFixed(2) : null) : null}`, `${this.state.playerOne ? (this.state.playerOne[0] ? this.state.playerOne[0].current_stock_value.toFixed(2) : null) : null}`],
+      },
+      {
+        label: `${this.state.playerTwo ? this.state.playerTwo[0].name : null}`,
+        backgroundColor: ["#006D42", "#006D42"],
+        borderWidth: 1,
+        data: [`${this.state.playerTwo ? (this.state.playerTwo[0] ? this.state.playerTwo[0].initial_stock_value.toFixed(2) : null) : null}`, `${this.state.playerTwo ? (this.state.playerTwo[0] ? this.state.playerTwo[0].current_stock_value.toFixed(2) : null) : null}`],
+      }]
+    };
+// var barOptions = {
+
+//     };
+var lineChartData = {
+labels: ["Week 1", "Week 2", "Week 3", "Week 4", "Week 5", "Week 6", "Week 7"],
+datasets: [
+            {
+			label: `${this.state.playerOne ? this.state.playerOne[0].name : null}`,
+            data: [`${this.state.playerOne ? (this.state.playerOne[0] ? this.state.playerOne[0].week_one : null) : null}`, `${this.state.playerOne ? (this.state.playerOne[0] ? this.state.playerOne[0].week_two : null) : null}`, `${this.state.playerOne ? (this.state.playerOne[0] ? this.state.playerOne[0].week_three : null) : null}`, `${this.state.playerOne ? (this.state.playerOne[0] ? this.state.playerOne[0].week_four : null) : null}`, `${this.state.playerOne ? (this.state.playerOne[0] ? this.state.playerOne[0].week_five : null) : null}`, `${this.state.playerOne ? (this.state.playerOne[0] ? this.state.playerOne[0].week_six : null) : null}`, `${this.state.playerOne ? (this.state.playerOne[0] ? this.state.playerOne[0].week_seven : null) : null}`, `${this.state.playerOne ? (this.state.playerOne[0] ? this.state.playerOne[0].week_eight : null) : null}`, `${this.state.playerOne ? (this.state.playerOne[0] ? this.state.playerOne[0].week_nine : null) : null}`, `${this.state.playerOne ? (this.state.playerOne[0] ? this.state.playerOne[0].week_ten : null) : null}`, `${this.state.playerOne ? (this.state.playerOne[0] ? this.state.playerOne[0].week_eleven : null) : null}`, `${this.state.playerOne ? (this.state.playerOne[0] ? this.state.playerOne[0].week_twelve : null) : null}`, `${this.state.playerOne ? (this.state.playerOne[0] ? this.state.playerOne[0].week_thirteen : null) : null}`, `${this.state.playerOne ? (this.state.playerOne[0] ? this.state.playerOne[0].week_fourteen : null) : null}`, `${this.state.playerOne ? (this.state.playerOne[0] ? this.state.playerOne[0].week_fifteen : null) : null}`, `${this.state.playerOne ? (this.state.playerOne[0] ? this.state.playerOne[0].week_sixteen : null) : null}`, `${this.state.playerOne ? (this.state.playerOne[0] ? this.state.playerOne[0].week_seventeen : null) : null}`],
+            backgroundColor: "rgba(0, 0, 0, 0)",
+            borderColor: "pink"
+            }, 
+            {	
+            	label: `${this.state.playerTwo ? this.state.playerTwo[0].name : null}`,
+				data: [`${this.state.playerTwo ? (this.state.playerTwo[0] ? this.state.playerTwo[0].week_one : null) : null}`, `${this.state.playerTwo ? (this.state.playerTwo[0] ? this.state.playerTwo[0].week_two : null) : null}`, `${this.state.playerTwo ? (this.state.playerTwo[0] ? this.state.playerTwo[0].week_three : null) : null}`, `${this.state.playerTwo ? (this.state.playerTwo[0] ? this.state.playerTwo[0].week_four : null) : null}`, `${this.state.playerTwo ? (this.state.playerTwo[0] ? this.state.playerTwo[0].week_five : null) : null}`, `${this.state.playerTwo ? (this.state.playerTwo[0] ? this.state.playerTwo[0].week_six : null) : null}`, `${this.state.playerTwo ? (this.state.playerTwo[0] ? this.state.playerTwo[0].week_seven : null) : null}`, `${this.state.playerTwo ? (this.state.playerTwo[0] ? this.state.playerTwo[0].week_eight : null) : null}`, `${this.state.playerTwo ? (this.state.playerTwo[0] ? this.state.playerTwo[0].week_nine : null) : null}`, `${this.state.playerTwo ? (this.state.playerTwo[0] ? this.state.playerTwo[0].week_ten : null) : null}`, `${this.state.playerTwo ? (this.state.playerTwo[0] ? this.state.playerTwo[0].week_eleven : null) : null}`, `${this.state.playerTwo ? (this.state.playerTwo[0] ? this.state.playerTwo[0].week_twelve : null) : null}`, `${this.state.playerTwo ? (this.state.playerTwo[0] ? this.state.playerTwo[0].week_thirteen : null) : null}`, `${this.state.playerTwo ? (this.state.playerTwo[0] ? this.state.playerTwo[0].week_fourteen : null) : null}`, `${this.state.playerTwo ? (this.state.playerTwo[0] ? this.state.playerTwo[0].week_fifteen : null) : null}`, `${this.state.playerTwo ? (this.state.playerTwo[0] ? this.state.playerTwo[0].week_sixteen : null) : null}`, `${this.state.playerTwo ? (this.state.playerTwo[0] ? this.state.playerTwo[0].week_seventeen : null) : null}`],            	backgroundColor: "rgba(0, 0, 0, 0)",
+            	borderColor: "green"
+            }
+           ]
+}
+var lineChartOptions = {
+    bezierCurve : false,
+    datasetFill : false,
+    pointDotStrokeWidth: 4,
+    scaleShowVerticalLines: false,
+    responsive: true
+};
 const options = this.mapOverAthletes()
 return (
 <div>
 <h1>Compare Two Players</h1>
-<Dropdown onClick={this.deletion} onChange={this.handleDropDown} placeholder='Search for Players' fluid multiple search selection options={options} />
-<Button content='Compare' />
+<Dropdown onChange={this.handleDropDownOne} placeholder='Search for Players' search selection options={options} /><Dropdown onChange={this.handleDropDownTwo} placeholder='Search for Players' search selection options={options} /><br/>
+<Button onClick={this.compare} content='Compare' /><br/>
+{this.state.playerOne ? `${this.state.playerOne[0].name}: $${this.state.playerOne[0].current_stock_value.toFixed(2)}` : null} <br/>
+{this.state.playerTwo ? `${this.state.playerTwo[0].name}: $${this.state.playerTwo[0].current_stock_value.toFixed(2)}` : null}
+{this.state.playerOne ? <Line data={lineChartData} options={lineChartOptions} width={1100} height={150} /> : null}
+{this.state.playerOne ? <Bar data={barData}  width="600" height="250" /> : null}
 </div>
 )
 }
