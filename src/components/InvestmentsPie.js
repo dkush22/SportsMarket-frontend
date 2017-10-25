@@ -16,12 +16,16 @@ getRandomColor = () => {
 
 handleLabel = () => {
 const investName = this.props.investments.map(investment => investment.nfl_athlete.name)
-const investAmount = this.props.investments.map(investment => (investment.quantity * investment.acquisition_price))
+const investAmount = this.props.investments.map(investment => parseFloat((investment.quantity * investment.nfl_athlete.current_stock_value).toFixed(2), 10))
+const netTotalInvested = (investAmount.length ? investAmount.reduce(function(accumulator, currentValue) {
+		return accumulator + currentValue
+	}) : null)
 const chartData = {
-	labels: [],
+	labels: ["Available Budget"],
 	datasets: [
-	{data: [],
-	backgroundColor: []
+	{data: [`${this.props.investments ? (this.props.investments[0] ? this.props.investments[0].user.budget.toFixed(2) : null) : null}`],
+	backgroundColor: [],
+	hoverBackgroundColor: []
 	}]
 	}
 const chartOptions = {
@@ -38,15 +42,19 @@ for (let i = 0; i < investAmount.length; i++) {
 for (let i = 0; i < 500; i++) {
 	chartData.datasets[0].backgroundColor.push(this.getRandomColor())
 }
+for (let i = 0; i < 500; i++) {
+	chartData.datasets[0].hoverBackgroundColor.push(this.getRandomColor())
+}
 
 
-return {chartData, chartOptions}
+return {chartData, chartOptions, netTotalInvested}
 }
 
 render() {
 const dataOrOption = this.handleLabel()
 return (
 <div>
+<h3>Total Assets: ${this.props.investments ? (this.props.investments[0] ? (dataOrOption.netTotalInvested + this.props.investments[0].user.budget).toFixed(2) : null) : null}</h3>
 <Pie data={dataOrOption.chartData} options={dataOrOption.chartOptions} width={600} height={250} />	
 
 </div>

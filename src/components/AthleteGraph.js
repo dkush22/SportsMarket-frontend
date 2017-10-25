@@ -7,7 +7,6 @@ class AthleteGraph extends React.Component {
 
 render() {
 const filteredPlayer = this.props.nflAthletes.filter(player => player.id === parseInt(window.location.pathname.split('/')[2], 10))
-console.log(filteredPlayer)
 var chartData = {
 labels: ["Week 1", "Week 2", "Week 3", "Week 4", "Week 5", "Week 6", "Week 7"],
 datasets: [

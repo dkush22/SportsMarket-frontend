@@ -1,8 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { fetchNFLAthletes } from '../actions/nflAthletes.js'
-import { fetchInvestments } from '../actions/investments.js'
-import Transparentbackground from '../Transparentbackground.png'
 import { Link } from 'react-router-dom'
 
 

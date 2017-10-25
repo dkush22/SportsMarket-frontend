@@ -23,7 +23,6 @@ render() {
 		<Route path="/athletes/:id" render={(routeProps, props) => <AthleteInfo nflAthletes={this.props.nflAthletes} investments={this.props.investments} history={this.props.history} {...props}/> }/>
 		<Route exact path="/athletes" render={(props) => <AthleteList nflAthletes={this.props.nflAthletes} investments={this.props.investments}  {...props} />} /> 
 		
-
 	</div>
 )
 }

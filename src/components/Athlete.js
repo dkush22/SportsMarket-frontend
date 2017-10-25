@@ -7,7 +7,6 @@ const Athlete = (props) => {
 
 
 
-
 	const filteredInvestments = props.investments.filter(investment => investment.user_id === parseInt(localStorage.getItem('user_id'), 10))
 	const ownedAthletes = filteredInvestments.map(investment => investment.nfl_athlete.name)
 	return (
@@ -31,6 +30,3 @@ function mapStateToProps(state) {
 }
 
 export default connect(mapStateToProps)(Athlete)
-
-
-// <Route path="/athletes" render={(props) => <AthleteContainer {...props} /> }/>

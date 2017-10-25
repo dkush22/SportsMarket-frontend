@@ -5,6 +5,7 @@ import {Route} from 'react-router-dom'
 import Footer from'./components/Footer.js'
 import Navbar from './components/Navbar.js'
 import UsersContainer from './components/UsersContainer.js'
+import CompareAthlete from './components/CompareAthlete.js'
 import SiteMap from './components/SiteMap.js'
 import Contacts from './components/Contacts.js'
 import TermsAndConditions from './components/TermsAndConditions.js'
@@ -84,6 +85,7 @@ class App extends Component {
 
       <Route path="/login" render={() => <Redirect to='/athletes'/>} />
       <Route exact path='/signup' render={() => <Redirect to='/athletes'/>} />
+      <Route exact path="/compare" render={(props) => <CompareAthlete />} /> 
       <Route exact path="/sitemap" render={(props) => <SiteMap />} /> 
       <Route exact path="/contact" render={(props) => <Contacts />} /> 
       <Route exact path="/termsandconditions" render={(props) => <TermsAndConditions />} /> 
@@ -99,6 +101,7 @@ class App extends Component {
       <Route path="/athletes" render={(props) => <AthleteContainer {...props} /> }/>
       <Route path="/login" render={(props) => <Login onLogin={this.login} {...props} /> }/>
       <Route exact path='/signup' render={(props) => {return <Signup onSignUp={this.signup} {...props}/>}} />
+      <Route exact path="/compare" render={(props) => <CompareAthlete />} /> 
       <Route exact path="/sitemap" render={(props) => <SiteMap />} /> 
       <Route exact path="/contact" render={(props) => <Contacts />} /> 
       <Route exact path="/termsandconditions" render={(props) => <TermsAndConditions />} /> 
