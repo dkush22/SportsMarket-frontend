@@ -8,7 +8,7 @@ class AthleteGraph extends React.Component {
 render() {
 const filteredPlayer = this.props.nflAthletes.filter(player => player.id === parseInt(window.location.pathname.split('/')[2], 10))
 var chartData = {
-labels: ["Week 1", "Week 2", "Week 3", "Week 4", "Week 5", "Week 6", "Week 7"],
+labels: ["Week 1", "Week 2", "Week 3", "Week 4", "Week 5", "Week 6", "Week 7", "Week 8", "Week 9", "Week 10", "week 11", "Week 12"],
 datasets: [
             {
 			label: "Week by Week",
@@ -18,7 +18,7 @@ datasets: [
             }, 
             {	
             	label: "Projected Season Output",
-            	data: [`${filteredPlayer ? (filteredPlayer[0] ? filteredPlayer[0].fantasy_projection : null) : null}`, `${filteredPlayer ? (filteredPlayer[0] ? filteredPlayer[0].fantasy_projection : null) : null}`, `${filteredPlayer ? (filteredPlayer[0] ? filteredPlayer[0].fantasy_projection : null) : null}`, `${filteredPlayer ? (filteredPlayer[0] ? filteredPlayer[0].fantasy_projection : null) : null}`, `${filteredPlayer ? (filteredPlayer[0] ? filteredPlayer[0].fantasy_projection : null) : null}`, `${filteredPlayer ? (filteredPlayer[0] ? filteredPlayer[0].fantasy_projection : null) : null}`, `${filteredPlayer ? (filteredPlayer[0] ? filteredPlayer[0].fantasy_projection : null) : null}`],
+            	data: [`${filteredPlayer ? (filteredPlayer[0] ? filteredPlayer[0].fantasy_projection : null) : null}`, `${filteredPlayer ? (filteredPlayer[0] ? filteredPlayer[0].fantasy_projection : null) : null}`, `${filteredPlayer ? (filteredPlayer[0] ? filteredPlayer[0].fantasy_projection : null) : null}`, `${filteredPlayer ? (filteredPlayer[0] ? filteredPlayer[0].fantasy_projection : null) : null}`, `${filteredPlayer ? (filteredPlayer[0] ? filteredPlayer[0].fantasy_projection : null) : null}`, `${filteredPlayer ? (filteredPlayer[0] ? filteredPlayer[0].fantasy_projection : null) : null}`, `${filteredPlayer ? (filteredPlayer[0] ? filteredPlayer[0].fantasy_projection : null) : null}`, `${filteredPlayer ? (filteredPlayer[0] ? filteredPlayer[0].fantasy_projection : null) : null}`, `${filteredPlayer ? (filteredPlayer[0] ? filteredPlayer[0].fantasy_projection : null) : null}`, `${filteredPlayer ? (filteredPlayer[0] ? filteredPlayer[0].fantasy_projection : null) : null}`, `${filteredPlayer ? (filteredPlayer[0] ? filteredPlayer[0].fantasy_projection : null) : null}`, `${filteredPlayer ? (filteredPlayer[0] ? filteredPlayer[0].fantasy_projection : null) : null}`],
             	backgroundColor: "rgba(0, 0, 0, 0)",
             	borderColor: "green"
             }

@@ -5,6 +5,7 @@
   "dependencies": {
     "chart.js": "^2.7.0",
     "create-react-class": "^15.6.2",
+    "heroku": "^0.2.0",
     "jwt-decode": "^2.2.0",
     "nba": "^3.5.1",
     "react": "^16.0.0",
