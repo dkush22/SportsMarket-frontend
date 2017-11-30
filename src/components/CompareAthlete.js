@@ -36,8 +36,6 @@ handleDropDownTwo = (event) => {
 compare = (event) => {
 	const oneNFL = this.props.nflAthletes.filter(player => player.name === this.state.compareOne)
 	const twoNFL = this.props.nflAthletes.filter(player => player.name === this.state.compareTwo)
-    console.log(oneNFL)
-    console.log(twoNFL)
 	this.setState({
 		playerOne: oneNFL,
 		playerTwo: twoNFL
